@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Digital Garden Documentation
+    url: https://github.com/yourusername/digital-garden/wiki
+    about: Check our documentation for guides and help.
+  
+templates:
+  - name: Development Task
+    about: Template for development tasks with learning goals
+    filename: task_template.md
