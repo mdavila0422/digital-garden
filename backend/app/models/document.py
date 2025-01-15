@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional, ClassVar, Set
-from pydantic import BaseModel, Field, field_validator, ValidationInfo
+from pydantic import BaseModel, Field, field_validator, ValidationInfo, ConfigDict
 
 class Document(BaseModel):
     """
@@ -20,6 +20,14 @@ class Document(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.now)
     tags: List[str] = Field(default_factory=list)
     document_type: str
+    
+    Config: ClassVar[ConfigDict] = ConfigDict(
+        json = {
+            "encoders" : {
+                datetime: lambda v: v.isoformat()
+            }
+        }
+    )
     
     #Define valid document types
     VALID_DOCUMENT_TYPES: ClassVar[Set[str]] = {"article", "note", "journal", "project"}
@@ -48,8 +56,3 @@ class Document(BaseModel):
             raise ValueError("Tags must be unique")
         return stripped
     
-    class Config:
-        """Pydantic model configuration"""
-        json_encoders = {
-            datetime: lambda v: v.isoformat(),
-        }
