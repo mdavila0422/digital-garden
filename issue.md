@@ -81,6 +81,7 @@ Set up testing infrastructure for the project.
 - bitwise AND operator vs logical AND operator
   - '&' bitwise operator converts numbers into binary and compares them bit by bit
   - 'and' logical operator compare boolean values
+- json_encoders is deprecated search for alternatives
 
 ### Key Insights
 - Unit tests: Test individual functions/components in isolation
@@ -111,6 +112,9 @@ Set up testing infrastructure for the project.
   - Set[str] is the formal type hint that tells type checkers "this is a set of strings"
   - set[str] is the runtime implementation
 - Double underscore (dunder) methods are part of Python's protocol system
+- Dictionary based configuration approach instead of class based approach
+- Test fixtures
+
 
 ### Questions to Research
 - What is a decorator?
