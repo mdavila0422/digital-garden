@@ -59,7 +59,8 @@ jobs:
       - name: "Run tests with pytest"
         # What command to run?
         run: |
-          pytest -v --cov=app --cov-report=xml
+            cd backend  
+            pytest -v --cov=. --cov-report=xml
         # How to generate coverage?
 
       # Step 4.5: Upload coverage report
