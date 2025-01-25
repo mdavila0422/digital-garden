@@ -21,6 +21,14 @@ jobs:
     # What operating system should this run on?
     runs-on: ubuntu-latest
 
+    # Define our testing matrix
+    strategy:
+        # This tells GitHub Actions to not cancel all tests if one version fails
+      fail-fast: false
+      matrix:
+        #We'll test against multiple Python versions
+        python-version: ["3.9", "3.10", "3.11", "3.12"] 
+
     # Step 4: Define the sequence of steps
     steps:
       # Step 4.1: Check out the code
@@ -29,12 +37,12 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 4.2: Set up Python
-      - name: "Set up Python"
+      - name: "Set up Python ${{ matrix.python-version }}"
         # Which Python setup action?
         uses: actions/setup-python@v4
         # What version to use?
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
 
       # Step 4.3: Install dependencies
       - name: "Install dependencies"
@@ -51,10 +59,13 @@ jobs:
       - name: "Run tests with pytest"
         # What command to run?
         run: |
-          pytest -v --cov=app
+          pytest -v --cov=app --cov-report=xml
         # How to generate coverage?
 
       # Step 4.5: Upload coverage report
-      #- name: "Upload coverage reports"
+      - name: "Upload coverage reports to Codecov"
+        uses: codecov/codecov-action@v5
+        with: 
+          token: ${{ secrets.CODECOV_TOKEN }}
         # Which coverage action to use?
         # What settings needed?
