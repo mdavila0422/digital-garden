@@ -1,7 +1,43 @@
 import pytest
+import asyncio
+from pathlib import Path
 from datetime import datetime
 from app.models.document import Document
 
+#Async Support Fixtures
+@pytest.fixture
+def event_loop():
+    """Create an instance of the default event loop for each test case"""
+    loop = asyncio.get_event_loop()
+    yield loop
+    loop.close()
+
+@pytest.fixture
+async def async_client():
+    """Create async test client for FastAPI app testing"""
+    from main import app
+    from httpx import AsyncClient
+    
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        yield client
+
+#Utility Fixtures
+@pytest.fixture
+def temp_file_path():
+    """Create a temporary file path for testing file operations"""
+    pass
+
+@pytest.fixture
+def mock_document_data():
+    """Generate mock data for document testing"""
+    pass
+
+@pytest.fixture
+def file_cleanup():
+    """Cleanup utility for removing test files"""
+    pass
+
+#Document Fixtures
 @pytest.fixture
 def minimal_valid_document():
     """
