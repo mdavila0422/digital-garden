@@ -189,3 +189,4 @@ next-env.d.ts
 # System files
 .DS_Store
 Thumbs.db
+dev_notes/
